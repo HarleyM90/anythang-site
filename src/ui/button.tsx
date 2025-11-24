@@ -5,7 +5,7 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean
   variant?: "default" | "secondary"
-  size?: "sm" | "default" | "lg" | "icon"
+  size?: "sm" | "md" | "lg"
 }
 
 const cn = (...c: (string | undefined | false)[]) =>
@@ -13,38 +13,30 @@ const cn = (...c: (string | undefined | false)[]) =>
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    {
-      className,
-      variant = "default",
-      size = "default",
-      asChild = false,
-      ...props
-    },
+    { className, variant = "default", size = "md", asChild = false, ...props },
     ref
   ) => {
     const Comp = asChild ? Slot : "button"
 
     const base =
-      "inline-flex items-center justify-center text-sm font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50"
+      "inline-flex items-center justify-center font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50"
 
-    // Size variants
-    const sizes = {
-      sm: "h-9 px-3",
-      default: "h-10 px-4",
-      lg: "h-12 px-6 text-base",
-      icon: "h-10 w-10",
-    }
+    const sizeClasses =
+      size === "sm"
+        ? "px-2 py-1 text-sm"
+        : size === "lg"
+        ? "px-6 py-3 text-lg"
+        : "px-4 py-2 text-base"
 
-    // Variant styles
-    const variants =
+    const styles =
       variant === "secondary"
         ? "bg-white/10 hover:bg-white/20 text-white border border-white/20"
         : "bg-[#FF6A13] hover:opacity-90 text-white"
 
     return (
       <Comp
-        ref={ref as any}
-        className={cn(base, sizes[size], variants, className)}
+        ref={ref as React.Ref<any>}
+        className={cn(base, sizeClasses, styles, className)}
         {...props}
       />
     )
