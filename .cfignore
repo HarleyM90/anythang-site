@@ -1,3 +1,22 @@
-.next/cache
-.next/server
-node_modules
+# Ignore everything by default
+*
+
+# Allow build output
+!out/
+!out/**
+
+# Allow public assets
+!public/
+!public/**
+
+# Allow Next config files
+!next.config.*
+!package.json
+!package-lock.json
+
+# Allow source code ONLY if Cloudflare needs to build (it does here)
+!src/
+!src/**
+!tsconfig.json
+!postcss.config.*
+!tailwind.config.*
