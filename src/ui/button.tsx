@@ -35,7 +35,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <Comp
-        ref={ref as React.Ref<any>}
+        // Fully typed ref — no 'any', no warnings
+        ref={ref as React.Ref<HTMLButtonElement>}
         className={cn(base, sizeClasses, styles, className)}
         {...props}
       />
