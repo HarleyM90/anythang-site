@@ -123,18 +123,21 @@ function SocialLinks({
         <span className="relative z-10">Facebook</span>
       </a>
 
-      {/* INSTAGRAM (coming soon) */}
-      <span
-        className={`${base} ${size} border-white/10 text-white/40 cursor-not-allowed relative z-10`}
-        title="Instagram link coming soon"
-      >
-        <BrandIcon
-          src="/brands/instagram.svg"
-          alt="Instagram"
-          fallback={<Instagram className="w-4 h-4" />}
-        />
-        <span className="relative z-10">Instagram</span>
-      </span>
+    <a
+  href="https://www.instagram.com/anythang_contracting?igsh=MWV2d2J4cDQ5cXVuZQ%3D%3D&utm_source=qr"
+  target="_blank"
+  rel="noopener noreferrer"
+  className={`${base} ${size} border-white/15 hover:bg-white/10 relative z-10`}
+  aria-label="Instagram"
+  title="Instagram"
+>
+  <BrandIcon
+    src="/brands/instagram.svg"
+    alt="Instagram"
+    fallback={<Instagram className="w-4 h-4" />}
+  />
+  <span className="relative z-10">Instagram</span>
+</a>
 
       {/* GOOGLE BUSINESS (coming soon) */}
       <span
