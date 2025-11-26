@@ -96,17 +96,14 @@ function SocialLinks({
   compact = false,
   align = "start" as "start" | "end",
 }) {
-  // Shared base styles for all buttons
   const base =
     "inline-flex items-center gap-2 rounded-lg border transition focus:outline-none focus:ring-2 focus:ring-offset-2"
-
-  // Size differs for mobile vs desktop
   const size = compact ? "px-3 py-1.5 text-sm" : "px-3.5 py-2"
 
   return (
     <div className={`flex items-center gap-3 ${align === "end" ? "justify-end" : ""}`}>
-      
-      {/* FACEBOOK LINK */}
+
+      {/* Facebook */}
       <a
         href={FACEBOOK_URL}
         target="_blank"
@@ -123,23 +120,24 @@ function SocialLinks({
         <span className="relative z-10">Facebook</span>
       </a>
 
-    <a
-  href="https://www.instagram.com/anythang_contracting?igsh=MWV2d2J4cDQ5cXVuZQ%3D%3D&utm_source=qr"
-  target="_blank"
-  rel="noopener noreferrer"
-  className={`${base} ${size} border-white/15 hover:bg-white/10 relative z-10`}
-  aria-label="Instagram"
-  title="Instagram"
->
-  <BrandIcon
-    src="/brands/instagram.svg"
-    alt="Instagram"
-    fallback={<Instagram className="w-4 h-4" />}
-  />
-  <span className="relative z-10">Instagram</span>
-</a>
+      {/* Instagram — now LIVE */}
+      <a
+        href="https://www.instagram.com/anythang_contracting?igsh=MWV2d2J4cDQ5cXVuZQ%3D%3D&utm_source=qr"
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`${base} ${size} border-white/15 hover:bg-white/10 relative z-10`}
+        aria-label="Instagram"
+        title="Instagram"
+      >
+        <BrandIcon
+          src="/brands/instagram.svg"
+          alt="Instagram"
+          fallback={<Instagram className="w-4 h-4" />}
+        />
+        <span className="relative z-10">Instagram</span>
+      </a>
 
-      {/* GOOGLE BUSINESS (coming soon) */}
+      {/* Google Business — still a placeholder until link is ready */}
       <span
         className={`${base} ${size} border-white/10 text-white/40 cursor-not-allowed relative z-10`}
         title="Google Business link coming soon"
@@ -151,10 +149,10 @@ function SocialLinks({
         />
         <span className="relative z-10">Google</span>
       </span>
+
     </div>
   )
 }
-
 
 // =======================================================
 // Main Page Component
