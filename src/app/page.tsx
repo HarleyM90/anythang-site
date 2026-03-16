@@ -123,7 +123,7 @@ return (
     alt="Google"
     fallback={<Globe className="w-4 h-4" />}
   />
-  Google Reviews
+  Google
 </a>
 </div>
 
