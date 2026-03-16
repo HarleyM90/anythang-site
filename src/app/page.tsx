@@ -37,6 +37,7 @@ const BLACK = "#000000"
 const FACEBOOK_URL =
 "https://www.facebook.com/profile.php?id=61579394307733"
 
+const GOOGLE_URL = "https://share.google/e4gRgZ9mqUNlg9Gkr"
 // =======================================================
 // BrandIcon Component
 // =======================================================
@@ -111,16 +112,19 @@ return (
     Instagram
   </a>
 
-  <span
-    className={`${base} ${size} border-white/10 text-white/40 cursor-not-allowed`}
-  >
-    <BrandIcon
-      src="/brands/google.svg"
-      alt="Google"
-      fallback={<Globe className="w-4 h-4" />}
-    />
-    Google
-  </span>
+  <a
+  href="https://share.google/e4gRgZ9mqUNlg9Gkr"
+  target="_blank"
+  rel="noopener noreferrer"
+  className={`${base} ${size} border-white/15 hover:bg-white/10`}
+>
+  <BrandIcon
+    src="/brands/google.svg"
+    alt="Google"
+    fallback={<Globe className="w-4 h-4" />}
+  />
+  Google Reviews
+</a>
 </div>
 
 )
