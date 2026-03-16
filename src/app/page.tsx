@@ -82,7 +82,7 @@ const size = compact ? "px-3 py-1.5 text-sm" : "px-3.5 py-2"
 return (
 <div className={`flex items-center gap-3 ${align === "end" ? "justify-end" : ""}`}>
 
-```
+
   <a
     href={FACEBOOK_URL}
     target="_blank"
@@ -150,16 +150,15 @@ const interval = setInterval(() => {
 setReviewIndex((prev) => (prev + 1) % reviews.length)
 }, 6000)
 
-```
+
 return () => clearInterval(interval)
-```
+
 
 }, [reviews.length])
 
 return (
 <div className="min-h-screen" style={{ backgroundColor: BLACK, color: "white" }}>
 
-```
   {/* =====================================================
       TOP CONTACT BAR
   ====================================================== */}
@@ -483,7 +482,6 @@ items: [
 "Land clearing",
 "Grading",
 "Demolition",
-"Free appointments",
 ],
 },
 ]
