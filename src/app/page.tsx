@@ -112,8 +112,8 @@ return (
     Instagram
   </a>
 
-  <a
-  href="https://share.google/e4gRgZ9mqUNlg9Gkr"
+<a
+  href={GOOGLE_URL}
   target="_blank"
   rel="noopener noreferrer"
   className={`${base} ${size} border-white/15 hover:bg-white/10`}
