@@ -122,7 +122,6 @@ return (
     Google
   </span>
 </div>
-```
 
 )
 }
