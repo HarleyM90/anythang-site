@@ -1,60 +1,42 @@
-"use client"
+﻿"use client"
 
 // =======================================================
 // Imports
 // =======================================================
 
 import React from "react"
-
-// Next.js optimized image component
 import Image from "next/image"
-
-// Smooth entrance animations
 import { motion } from "framer-motion"
 
-// Your shadcn/ui components
 import { Button } from "@/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/ui/card"
 import { Badge } from "@/ui/badge"
 
-// Icons from lucide-react
 import {
-  Wrench,
-  Droplets,
   Phone,
   Clock,
   MapPin,
   CheckCircle2,
   Star,
-  MessageCircle,
   Facebook,
   Instagram,
   Globe,
+  Mail,
 } from "lucide-react"
 
 // =======================================================
 // Brand Colors & Constants
 // =======================================================
 
-// Main brand orange
 const ORANGE = "#FF6A13"
-
-// Global background color
 const BLACK = "#000000"
 
-// Facebook page link
-const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61579394307733"
-
+const FACEBOOK_URL =
+  "https://www.facebook.com/profile.php?id=61579394307733"
 
 // =======================================================
-// BrandIcon Component (FIXED to eliminate ghosting)
+// BrandIcon Component
 // =======================================================
 
-/**
- * Attempts to load an SVG from /public/brands/*.svg.
- * If loading fails (e.g. missing file, CDN delay, static export timing),
- * it falls back to a Lucide icon WITHOUT causing double-renders or flickering.
- */
 function BrandIcon({
   src,
   alt,
@@ -68,30 +50,24 @@ function BrandIcon({
 }) {
   const [failed, setFailed] = React.useState(false)
 
-  // If load failed → render fallback icon
+  // If load failed -> render fallback icon
   if (failed) return <>{fallback}</>
 
-  // Otherwise render the image normally
   return (
     <img
       src={src}
       alt={alt}
       className={className}
       onError={() => setFailed(true)}
-      style={{ display: "block" }} // prevents layout stacking
+      style={{ display: "block" }}
     />
   )
 }
 
-
 // =======================================================
-// SocialLinks Component (FIXED & Annotated)
+// SocialLinks Component
 // =======================================================
 
-/**
- * Displays social media links. Compact for mobile,
- * full-sized for desktop. Aligns left or right.
- */
 function SocialLinks({
   compact = false,
   align = "start" as "start" | "end",
@@ -108,48 +84,42 @@ function SocialLinks({
         href={FACEBOOK_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className={`${base} ${size} border-white/15 hover:bg-white/10 relative z-10`}
-        aria-label="Facebook"
-        title="Facebook"
+        className={`${base} ${size} border-white/15 hover:bg-white/10`}
       >
         <BrandIcon
           src="/brands/facebook.svg"
           alt="Facebook"
           fallback={<Facebook className="w-4 h-4" />}
         />
-        <span className="relative z-10">Facebook</span>
+        Facebook
       </a>
 
-      {/* Instagram — now LIVE */}
+      {/* Instagram */}
       <a
-        href="https://www.instagram.com/anythang_contracting?igsh=MWV2d2J4cDQ5cXVuZQ%3D%3D&utm_source=qr"
+        href="https://www.instagram.com/anythang_contracting"
         target="_blank"
         rel="noopener noreferrer"
-        className={`${base} ${size} border-white/15 hover:bg-white/10 relative z-10`}
-        aria-label="Instagram"
-        title="Instagram"
+        className={`${base} ${size} border-white/15 hover:bg-white/10`}
       >
         <BrandIcon
           src="/brands/instagram.svg"
           alt="Instagram"
           fallback={<Instagram className="w-4 h-4" />}
         />
-        <span className="relative z-10">Instagram</span>
+        Instagram
       </a>
 
-      {/* Google Business — still a placeholder until link is ready */}
+      {/* Google Placeholder */}
       <span
-        className={`${base} ${size} border-white/10 text-white/40 cursor-not-allowed relative z-10`}
-        title="Google Business link coming soon"
+        className={`${base} ${size} border-white/10 text-white/40 cursor-not-allowed`}
       >
         <BrandIcon
           src="/brands/google.svg"
           alt="Google"
           fallback={<Globe className="w-4 h-4" />}
         />
-        <span className="relative z-10">Google</span>
+        Google
       </span>
-
     </div>
   )
 }
@@ -159,18 +129,40 @@ function SocialLinks({
 // =======================================================
 
 export default function Page() {
+
+  const reviews = [
+    {
+      text: "Brent with Anythang Septic & Grading is my go-to for septic needs. Very reliable, knowledgeable, and quick to respond while always putting the client's needs first.",
+      author: "Bobby Lammert",
+    },
+    {
+      text: "No regrets! I would definitely work with Michael & Brent again. They moved dirt, graded the yard, and installed a 90' tie wall surrounded by gravel. Extremely knowledgeable about septic and drainage.",
+      author: "Daniel Robinson",
+    },
+  ]
+
+  const [reviewIndex, setReviewIndex] = React.useState(0)
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setReviewIndex((prev) => (prev + 1) % reviews.length)
+    }, 6000)
+
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: BLACK, color: "white" }}>
 
       {/* =====================================================
           TOP CONTACT BAR
-          Shows logo, phone numbers, service area
       ====================================================== */}
+
       <div className="border-b border-white/10" style={{ backgroundColor: "#0b0b0b" }}>
         <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between text-sm">
 
-          {/* LEFT SIDE: LOGO + CONTACT INFO */}
           <div className="flex flex-wrap items-center gap-4 opacity-90">
+
             <Image
               src="/logo.png"
               alt="Anythang logo"
@@ -181,67 +173,63 @@ export default function Page() {
               priority
             />
 
-            {/* Michael */}
             <span className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
-              <a href="tel:+17068616780" className="hover:underline">Michael: (770) 861-6780</a>
+              <a href="tel:+17068616780">Michael: (770) 861-6780</a>
             </span>
 
-            {/* Brent */}
             <span className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
-              <a href="tel:+17069692568" className="hover:underline">Brent: (706) 969-2568</a>
+              <a href="tel:+17069692568">Brent: (706) 969-2568</a>
             </span>
 
-            {/* Hours */}
             <span className="hidden md:inline-flex items-center gap-2">
-              <Clock className="w-4 h-4" /> Daytime service (no late-night calls)
+              <Clock className="w-4 h-4" /> Daytime & Emergency services
             </span>
 
-            {/* Service Area */}
             <span className="hidden md:inline-flex items-center gap-2">
               <MapPin className="w-4 h-4" />
-              <span>Dahlonega, GA · </span>
-              <strong className="whitespace-nowrap">Serving North Georgia & South Carolina</strong>
+              <span>Dahlonega, GA</span>
+              <strong>Serving North Georgia & South Carolina</strong>
             </span>
+
           </div>
 
-          {/* RIGHT SIDE BADGES */}
           <div className="flex items-center gap-2">
-            <Badge className="border-white/20" style={{ backgroundColor: "rgba(255,106,19,.18)", color: ORANGE }}>
+            <Badge style={{ backgroundColor: "rgba(255,106,19,.18)", color: ORANGE }}>
               Free Appointments
             </Badge>
-            <Badge className="border-white/20" style={{ backgroundColor: "rgba(255,255,255,.08)", color: "#ddd" }}>
+
+            <Badge style={{ backgroundColor: "rgba(255,255,255,.08)", color: "#ddd" }}>
               On-site assessment required
             </Badge>
           </div>
+
         </div>
       </div>
 
-
       {/* =====================================================
           HERO SECTION
-          Big headline, call buttons, branding glow
       ====================================================== */}
+
       <header className="relative overflow-hidden">
 
-        {/* ORANGE GLOW BACKGROUND */}
         <div
           className="absolute inset-0"
           style={{
-            background: "radial-gradient(1200px 600px at 50% -200px, rgba(255,106,19,.18), transparent)",
+            background:
+              "radial-gradient(1200px 600px at 50% -200px, rgba(255,106,19,.18), transparent)",
           }}
         />
 
         <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
 
-          {/* LEFT SIDE CONTENT =============================== */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            {/* Small tagline */}
+
             <div
               className="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs mb-4"
               style={{
@@ -250,28 +238,24 @@ export default function Page() {
                 color: ORANGE,
               }}
             >
-              <CheckCircle2 className="w-4 h-4" /> Local pros. Daytime service. Done right.
+              <CheckCircle2 className="w-4 h-4" /> Local pros. Done right.
             </div>
 
-            {/* Site title */}
             <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
-              Anythang <span style={{ color: ORANGE }}>Septic</span> &{" "}
-              <span className="text-white">Grading</span>
+              Anythang <span style={{ color: ORANGE }}>Septic</span> & Grading
             </h1>
 
-            {/* Description */}
             <p className="mt-4 text-white/80 max-w-xl">
-              Pump outs, repairs, new installs, drainage and site work. Honest work, 
-              fair pricing, and appointments set on your schedule.
+              Pump outs, repairs, installs, drainage and site work.
             </p>
 
             {/* CALL BUTTONS */}
+
             <div className="mt-6 flex flex-wrap gap-3">
 
-              {/* Call Michael */}
               <Button
                 size="lg"
-                className="rounded-2xl"
+                className="rounded-full px-7"
                 style={{ backgroundColor: ORANGE }}
                 onClick={() => (window.location.href = "tel:+17068616780")}
               >
@@ -279,10 +263,9 @@ export default function Page() {
                 Call Michael
               </Button>
 
-              {/* Call Brent */}
               <Button
                 size="lg"
-                className="rounded-2xl"
+                className="rounded-full px-7"
                 style={{ backgroundColor: "white", color: "#000" }}
                 onClick={() => (window.location.href = "tel:+17069692568")}
               >
@@ -290,176 +273,101 @@ export default function Page() {
                 Call Brent
               </Button>
 
-              {/* Email */}
               <Button
                 variant="secondary"
                 size="lg"
-                className="rounded-2xl"
+                className="rounded-full px-7"
                 style={{ backgroundColor: "rgba(255,255,255,.08)" }}
-                onClick={() => (window.location.href = "mailto:anythangcontracting@gmail.com")}
+                onClick={() =>
+                  (window.location.href = "mailto:anythangcontracting@gmail.com")
+                }
               >
-                anythangcontracting@gmail.com
+                <Mail className="mr-2 h-5 w-5" />
+                Email Us
               </Button>
+
             </div>
 
-            {/* SOCIAL LINKS on MOBILE */}
-            <div className="mt-4 md:hidden">
-              <SocialLinks compact />
+            {/* REVIEWS */}
+
+            <div className="mt-8 max-w-xl">
+
+              <div className="flex items-center gap-2 text-yellow-400 mb-4">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="w-5 h-5 fill-current" />
+                ))}
+                <span className="text-white/80 text-sm ml-2">
+                  5.0 Rating from Google Reviews
+                </span>
+              </div>
+
+              <div className="relative h-[160px]">
+
+                {reviews.map((review, index) => {
+
+                  const isActive = reviewIndex === index
+
+                  return (
+                    <motion.div
+                      key={index}
+                      initial={false}
+                      animate={{
+                        opacity: isActive ? 1 : 0,
+                        y: isActive ? 0 : 20,
+                      }}
+                      transition={{ duration: 0.6 }}
+                      className="absolute w-full"
+                    >
+
+                      <div
+                        className="rounded-2xl border border-white/10 p-5 shadow-xl"
+                        style={{
+                          backgroundColor: "rgba(255,255,255,.04)",
+                        }}
+                      >
+                        <p className="text-white/85 text-sm italic">
+                          “{review.text}”
+                        </p>
+
+                        <span className="text-white/60 text-xs mt-2 block">
+                          — {review.author}
+                        </span>
+                      </div>
+
+                    </motion.div>
+                  )
+                })}
+
+              </div>
+
             </div>
 
-            {/* STARS SECTION */}
-            <div className="mt-6 flex items-center gap-2" style={{ color: "#FBBF24" }}>
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="w-5 h-5 fill-current" />
-              ))}
-              <span className="text-white/70">
-                Customer-first service across North Georgia & South Carolina
-              </span>
-            </div>
           </motion.div>
 
+          {/* RIGHT SIDE LOGO */}
 
-          {/* RIGHT SIDE: LOGO + SOCIALS (DESKTOP ONLY) */}
           <div className="hidden md:flex flex-col items-end justify-center">
+
             <Image
               src="/logo.png"
               alt="Anythang logo"
               width={380}
               height={380}
-              className="w-[320px] lg:w-[380px] h-auto opacity-95 drop-shadow-[0_10px_40px_rgba(255,106,19,0.25)] select-none"
+              className="w-[320px] lg:w-[380px]"
               draggable={false}
               priority
             />
+
             <div className="mt-4">
               <SocialLinks align="end" />
             </div>
+
           </div>
 
         </div>
+
       </header>
-
-
-      {/* =====================================================
-          SERVICES SECTION
-      ====================================================== */}
-      <section className="max-w-7xl mx-auto px-4 py-16">
-
-        {/* Section header */}
-        <div>
-          <h2 className="text-3xl md:text-4xl font-bold">What we do</h2>
-          <p className="text-white/70 mt-2">
-            Septic, plumbing, and site work for homes, rentals, and light commercial.
-          </p>
-        </div>
-
-        {/* Grid of services */}
-        <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((s, idx) => (
-            <Card
-              key={idx}
-              className="border-white/10 rounded-2xl"
-              style={{ backgroundColor: "rgba(255,255,255,.04)" }}
-            >
-              <CardHeader className="pb-2">
-                <CardTitle className="flex items-center gap-2 text-white">
-                  <s.icon className="w-5 h-5" style={{ color: ORANGE }} />
-                  {s.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-white/80 text-sm">
-                  {s.items.map((it, i) => (
-                    <li key={i} className="flex gap-2">
-                      <CheckCircle2 className="w-4 h-4" style={{ color: ORANGE }} />
-                      {it}
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-      </section>
-
-
-      {/* =====================================================
-          STICKY TEXT BAR (bottom)
-      ====================================================== */}
-      <div className="fixed inset-x-0 bottom-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 pb-4">
-          <div
-            className="rounded-2xl shadow-xl border border-white/10 flex flex-col sm:flex-row gap-2 sm:gap-3 p-3 backdrop-blur"
-            style={{ backgroundColor: "rgba(20,20,20,.9)" }}
-          >
-            {/* Left side text */}
-            <div className="flex items-center gap-2 text-sm text-white/70">
-              <MessageCircle className="w-5 h-5" style={{ color: ORANGE }} />
-              <span>Need help? Tap to text now.</span>
-            </div>
-
-            {/* Right side text buttons */}
-            <div className="flex-1 flex flex-wrap justify-end gap-2">
-              
-              {/* Text Michael */}
-              <Button
-                className="rounded-xl"
-                style={{ backgroundColor: "rgba(255,255,255,.10)" }}
-                onClick={() =>
-                  (window.location.href =
-                    "sms:+17068616780?body=Hi%20Michael%2C%20I%27m%20reaching%20out%20about%20septic%2Fgrading%20help%20in%20North%20Georgia%20or%20South%20Carolina...")
-                }
-              >
-                Text Michael
-              </Button>
-
-              {/* Text Brent */}
-              <Button
-                className="rounded-xl"
-                style={{ backgroundColor: "rgba(255,255,255,.10)" }}
-                onClick={() =>
-                  (window.location.href =
-                    "sms:+17069692568?body=Hi%20Brent%2C%20I%27m%20reaching%20out%20about%20septic%2Fgrading%20help%20in%20North%20Georgia%20or%20South%20Carolina...")
-                }
-              >
-                Text Brent
-              </Button>
-
-            </div>
-          </div>
-        </div>
-      </div>
 
     </div>
   )
 }
-
-
-// =======================================================
-// Services List (bottom of file)
-// =======================================================
-
-const services = [
-  {
-    title: "Septic Services",
-    icon: Droplets,
-    items: [
-      "Pump outs",
-      "Septic repair",
-      "New septic install",
-      "Drain field install",
-      "Inlet/Outlet pipe installs",
-    ],
-  },
-  {
-    title: "Plumbing & Site Work",
-    icon: Wrench,
-    items: [
-      "Yard drainage repairs",
-      "Land clearing",
-      "Grading",
-      "Demolition",
-      "Free appointments",
-    ],
-  },
-]
